@@ -3,7 +3,6 @@ import {User} from "./User"
 import {Menu} from "./Menu"
 import { Category } from "./Category";
 import { Time } from "./Time";
-import { Wish } from "./Wish"
 @Entity('Restaurant')
 export class Restaurant extends BaseEntity{
   @PrimaryColumn()
@@ -13,7 +12,7 @@ export class Restaurant extends BaseEntity{
   name: string;
 
   @Column()
-  category: string;
+  ownerEmail: string;
 
   @Column({
     type: "simple-json",
@@ -31,18 +30,23 @@ export class Restaurant extends BaseEntity{
   @Column({nullable:true})
   image: string;
 
-  @OneToOne( ()=>User, (user)=> user.restaurant, {onDelete:'CASCADE'})//회원 삭제시 식당 삭제
-  user: User
+  @Column()
+  category: string;
 
-  @OneToMany(()=> Menu, menu=>menu.restaurant)
-  menus: Menu[];
+  @Column({nullable:true, length:1000})
+  description:string;
+  // @OneToOne( ()=>User, (user)=> user.restaurant, {onDelete:'CASCADE'})//회원 삭제시 식당 삭제
+  // @JoinColumn()
+  // user: User;
 
-  @ManyToOne(()=> Category, categoryEntity=>categoryEntity.restaurants ,{onDelete:'SET NULL'})
-  categoryEntity:Category 
+  // @OneToMany(()=> Menu, menu=>menu.restaurant,{ cascade: ['insert', 'update'] })
+  // menus: Menu[];
 
-  @OneToMany(()=>Time, time=>time.restaurant )
-  times: Time[];
+  // @ManyToOne(()=> Category, categoryEntity=>categoryEntity.restaurants ,{onDelete:'SET NULL'})
+  // categoryEntity:Category 
 
-  @OneToMany(()=>Wish, wish=>wish.restaurant)
-  wishes:Wish[];
+  // @OneToMany(()=>Time, time=>time.restaurant, { cascade: ['insert', 'update'] })
+  // times: Time[];
+
+
 }

@@ -1,4 +1,3 @@
-import { reviewRouter } from "src/routers";
 import {BaseEntity, Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, OneToOne,CreateDateColumn} from "typeorm"
 import { Review } from "./Review";
 import { Time } from "./Time";
@@ -10,7 +9,7 @@ export class Reserve extends BaseEntity{
   reserveId: number;
 
   @Column()
-  timId:number;
+  timeId:number;
 
   @CreateDateColumn({type:"timestamp"})
   createdAt: Date;
@@ -24,22 +23,22 @@ export class Reserve extends BaseEntity{
   @Column(
     {type: "simple-array"}
   )
-  menuList: string;
+  menuList: number[];
 
   @Column(
     {type: "simple-array"}
   )
-  quantityList: number;
+  quantityList: number[];
 
   @Column()
   totalPrice: number;
 
-  @ManyToOne(()=>Time, time=>time.reserves)
-  time:Time
+  // @ManyToOne(()=>Time, time=>time.reserves)
+  // time:Time
 
-  @OneToOne(()=>Review, review=> review.reserve)
-  review:Review
+  // @OneToOne(()=>Review, review=> review.reserve)
+  // review:Review
   
-  @ManyToOne(()=>User, user=>user.reserves)
-  user:User;
+  // @ManyToOne(()=>User, user=>user.reserves)
+  // user:User;
 }

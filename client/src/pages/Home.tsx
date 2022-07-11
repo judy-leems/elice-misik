@@ -1,21 +1,19 @@
 import { Link } from 'react-router-dom';
 import { Gnb } from '../components/oranisms/Gnb';
 import styled from 'styled-components';
-
-const Container = styled.section`
-  margin-left: 233px;
-  height: 100vh;
-`;
+import WeekBestCard from '../components/molecules/Card/MainCardWithReview/MainCardWithReview';
+import CardWithoutReview from '../components/molecules/Card/MainCardWithoutReview/MainCardWithoutReview';
+import RecentReviewCard from '../components/molecules/Card/SideBarCard/RecentReviewCard';
+import ReservationListCard from '../components/molecules/Card/SideBarCard/ReservationListCard';
 
 export const Home = () => {
   return (
     <>
-      <Gnb />
-      <Container>
-        <h1>
-          Hello World! <br></br>This is Home section
-        </h1>
-      </Container>
+      <WeekBestCard></WeekBestCard>
+      <RecentReviewCard></RecentReviewCard>
+      <ReservationListCard></ReservationListCard>
+      <CardWithoutReview large={false}></CardWithoutReview>
+      <CardWithoutReview large></CardWithoutReview>
     </>
   );
 };
