@@ -9,6 +9,8 @@ import FormFooter from '../../../components/molecules/FormFooter';
 import Button from '../../../components/atoms/Button';
 import ButtonText from '../../../components/atoms/ButtonText';
 import Typography from '../../../components/atoms/Typography';
+import { PAGES } from '../../../constants/title';
+import { LABELTITLE, PLACEHOLDER } from '../../../constants/input';
 import { validateEmail } from '../../../functions';
 import * as UI from './style';
 
@@ -16,10 +18,10 @@ type valueObject = {
   [key: string]: any;
 };
 
-function UsersLogin({}) {
+const UsersLogin = () => {
   const initialValue: valueObject = { inputId: '', inputPassword: '' };
   const [formValues, setFormValues] = useState(initialValue);
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState<valueObject>({});
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e: any) => {
@@ -42,7 +44,6 @@ function UsersLogin({}) {
 
   const validate = (values: any) => {
     const errors: valueObject = {};
-
     const isInputIdValue = values.inputId;
     const isInputPasswordValue = values.inputPassword;
     const isValidEmail = validateEmail(values.inputId);
@@ -58,43 +59,62 @@ function UsersLogin({}) {
     } else if (!isMinPasswordLength) {
       errors.inputPassword = '비밀번호는 최소8자 입니다';
     }
+
     return errors;
   };
+
+  const inputData = [
+    {
+      htmlFor: 'inputId',
+      labelTitle: LABELTITLE.ID,
+      type: 'text',
+      id: 'inputId',
+      name: 'inputId',
+      value: formValues.inputId,
+      maxLength: undefined,
+      autoComplete: undefined,
+      onChange: handleChange,
+      placeholder: PLACEHOLDER.ID,
+      error: formErrors.inputId,
+    },
+    {
+      htmlFor: 'inputPassword',
+      labelTitle: LABELTITLE.PASSWORD,
+      type: 'password',
+      id: 'inputPassword',
+      name: 'inputPassword',
+      value: formValues.inputPassword,
+      maxLength: 20,
+      autoComplete: 'current-password',
+      onChange: handleChange,
+      placeholder: PLACEHOLDER.PASSWORD,
+      error: formErrors.inputPassword,
+    },
+  ];
 
   return (
     <UI.Container>
       <Form onSubmit={handleSubmit}>
-        <FormHeader title={'로그인'} />
-
-        {/* <FormItem>
-          <FormInput htmlFor={'inputId'} labelTitle={'아이디'}>
-            <InputText
-              id={'inputId'}
-              name={'inputId'}
-              value={formValues.inputId}
-              onChange={handleChange}
-              placeholder={'elice@gmail.com'}
-            />
-          </FormInput>
-          {formErrors.inputId && <FormError message={formErrors.inputId} />}
-        </FormItem>
-        <FormItem>
-          <FormInput htmlFor={'inputPassword'} labelTitle={'비밀번호'}>
-            <InputText
-              type={'password'}
-              id={'inputPassword'}
-              name={'inputPassword'}
-              value={formValues.inputPassword}
-              maxLength={20}
-              autoComplete={'current-password'}
-              onChange={handleChange}
-              placeholder={'최소 8자 이상의 비밀번호를 입력해 주세요'}
-            />
-          </FormInput>
-          {formErrors.inputPassword && (
-            <FormError message={formErrors.inputPassword} />
-          )}
-        </FormItem> */}
+        <FormHeader title={PAGES.USER_LOGIN} />
+        {inputData.map((item, index) => {
+          return (
+            <FormItem key={index}>
+              <FormInput htmlFor={item.htmlFor} labelTitle={item.labelTitle}>
+                <InputText
+                  type={item.type}
+                  id={item.id}
+                  name={item.name}
+                  value={item.value}
+                  maxLength={item.maxLength}
+                  autoComplete={item.autoComplete}
+                  onChange={item.onChange}
+                  placeholder={item.placeholder}
+                />
+              </FormInput>
+              {item.error ? <FormError message={item.error} /> : null}
+            </FormItem>
+          );
+        })}
 
         <FormFooter>
           <Button component={'primary'} size={'large'} block>
@@ -110,6 +130,6 @@ function UsersLogin({}) {
       </UI.JoinContainer>
     </UI.Container>
   );
-}
+};
 
 export default UsersLogin;

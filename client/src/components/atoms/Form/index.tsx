@@ -2,8 +2,8 @@ import React from 'react';
 import * as UI from './style';
 
 interface Props {
-  children?: React.ReactNode | string;
-  onSubmit?: (e: any) => void;
+  children: JSX.Element | JSX.Element[] | any;
+  onSubmit: (e: any) => void;
 }
 
 const Form = ({ children, onSubmit }: Props) => {
