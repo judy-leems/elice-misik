@@ -68,4 +68,9 @@ export default createGlobalStyle`
       margin: 0;
       padding: 0;
     }
+
+    input {
+      margin: 0;
+      padding: 0;
+    }
 `;
