@@ -56,7 +56,6 @@ function UsersLogin({}) {
     if (!isInputPasswordValue) {
       errors.inputPassword = '비밀번호를 입력해주세요';
     } else if (!isMinPasswordLength) {
-      console.log('trueueueu');
       errors.inputPassword = '비밀번호는 최소8자 입니다';
     }
     return errors;
