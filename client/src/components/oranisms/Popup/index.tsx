@@ -34,8 +34,8 @@ const Popup = ({
           <UI.Content>
             <UI.Section>
               <Header title={title} subTitle={subTitle} primary={primary!} />
-              {children && <Contents>{children}</Contents>}
-              {footer && <Footer foooterType={foooterType} />}
+              {!!children ? <Contents>{children}</Contents> : null}
+              {!!footer ? <Footer foooterType={foooterType} /> : null}
             </UI.Section>
           </UI.Content>
           <UI.Dimd />
