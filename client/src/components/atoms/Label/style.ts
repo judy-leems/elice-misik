@@ -1,6 +1,9 @@
 import styled, { css } from 'styled-components';
 
 export const Label = styled.label`
-  position: relative;
-  width: 100%;
+  ${(props) => props.theme.font.subtitle1};
+  color: ${(props) => props.theme.colors.black};
+  + div {
+    margin-top: 10px;
+  }
 `;

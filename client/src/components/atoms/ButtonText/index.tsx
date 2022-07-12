@@ -11,10 +11,9 @@ interface Props {
   onClick?: (e: any) => void;
 }
 
-const Button = ({
+const ButtonText = ({
   component,
   size,
-  block,
   children,
   to,
   href,
@@ -28,7 +27,6 @@ const Button = ({
         size={size}
         to={to}
         href={href}
-        block={block!}
         onClick={onClick}
       >
         {children}
@@ -40,7 +38,6 @@ const Button = ({
         type='button'
         component={component}
         size={size}
-        block={block!}
         onClick={onClick}
       >
         {children}
@@ -49,10 +46,9 @@ const Button = ({
   }
 };
 
-Button.defulatProps = {
+ButtonText.defulatProps = {
   component: 'default', // default, primary, info, disable
   size: 'default', // default, small, medium, large
-  block: false,
 };
 
-export default Button;
+export default ButtonText;
