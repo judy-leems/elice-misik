@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 interface Props {
   component?: string;
   size?: string;
-  block: boolean;
+  block?: boolean | undefined;
 }
 
 const ButtonStyle = css<Props>`
