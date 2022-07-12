@@ -37,7 +37,6 @@ const Button = ({
   } else {
     return (
       <UI.Button
-        type='button'
         component={component}
         size={size}
         block={block!}

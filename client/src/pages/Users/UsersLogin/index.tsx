@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import InputText from '../../../components/atoms/InputText';
 import Form from '../../../components/atoms/Form';
 import FormHeader from '../../../components/molecules/FormHeader';
@@ -9,52 +9,94 @@ import FormFooter from '../../../components/molecules/FormFooter';
 import Button from '../../../components/atoms/Button';
 import ButtonText from '../../../components/atoms/ButtonText';
 import Typography from '../../../components/atoms/Typography';
+import { validateEmail } from '../../../functions';
 import * as UI from './style';
 
-function UsersLogin({}) {
-  const [userId, setUserId] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+type valueObject = {
+  [key: string]: any;
+};
 
-  const handleLogin = async () => {
-    const 
-    console.log(userId.length, password.length);
+function UsersLogin({}) {
+  const initialValue: valueObject = { inputId: '', inputPassword: '' };
+  const [formValues, setFormValues] = useState(initialValue);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    setFormErrors(validate(formValues));
+    setIsSubmit(true);
+  };
+
+  useEffect(() => {
+    console.log(formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      console.log(formValues);
+    }
+  }, [formErrors]);
+
+  const validate = (values: any) => {
+    const errors = {};
+
+    const isInputIdValue = values.inputId;
+    const isInputPasswordValue = values.inputPassword;
+    const isValidEmail = validateEmail(values.inputId);
+    const isMinPasswordLength = isInputPasswordValue.length >= 8;
+
+    if (!isInputIdValue) {
+      errors.inputId = '이메일을 입력해주세요';
+    } else if (!isValidEmail) {
+      errors.inputId = '이메일 형식이 아닙니다.';
+    }
+    if (!isInputPasswordValue) {
+      errors.inputPassword = '비밀번호를 입력해주세요';
+    } else if (!isMinPasswordLength) {
+      console.log('trueueueu');
+      errors.inputPassword = '비밀번호는 최소8자 입니다';
+    }
+    return errors;
   };
 
   return (
     <UI.Container>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <FormHeader title={'로그인'} />
         <FormItem>
           <FormInput htmlFor={'inputId'} labelTitle={'아이디'}>
             <InputText
               id={'inputId'}
-              maxLength={10}
-              onChange={(e) => setUserId(e.target.value)}
+              name={'inputId'}
+              value={formValues.inputId}
+              onChange={handleChange}
               placeholder={'elice@gmail.com'}
             />
           </FormInput>
-          <FormError message={'이메일 형식이 아닙니다.'} />
+          {formErrors.inputId && <FormError message={formErrors.inputId} />}
         </FormItem>
         <FormItem>
           <FormInput htmlFor={'inputPassword'} labelTitle={'비밀번호'}>
             <InputText
-              id={'inputPassword'}
               type={'password'}
+              id={'inputPassword'}
+              name={'inputPassword'}
+              value={formValues.inputPassword}
               maxLength={20}
               autoComplete={'current-password'}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange}
               placeholder={'최소 8자 이상의 비밀번호를 입력해 주세요'}
             />
           </FormInput>
-          <FormError message={'비밀번호 형식이 아닙니다.'} />
+          {formErrors.inputPassword && (
+            <FormError message={formErrors.inputPassword} />
+          )}
         </FormItem>
         <FormFooter>
-          <Button
-            component={'primary'}
-            size={'large'}
-            block
-            onClick={handleLogin}
-          >
+          <Button component={'primary'} size={'large'} block>
             로그인
           </Button>
         </FormFooter>
