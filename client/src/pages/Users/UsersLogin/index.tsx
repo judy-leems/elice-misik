@@ -41,7 +41,7 @@ function UsersLogin({}) {
   }, [formErrors]);
 
   const validate = (values: any) => {
-    const errors = {};
+    const errors: valueObject = {};
 
     const isInputIdValue = values.inputId;
     const isInputPasswordValue = values.inputPassword;
@@ -65,7 +65,8 @@ function UsersLogin({}) {
     <UI.Container>
       <Form onSubmit={handleSubmit}>
         <FormHeader title={'로그인'} />
-        <FormItem>
+
+        {/* <FormItem>
           <FormInput htmlFor={'inputId'} labelTitle={'아이디'}>
             <InputText
               id={'inputId'}
@@ -93,7 +94,8 @@ function UsersLogin({}) {
           {formErrors.inputPassword && (
             <FormError message={formErrors.inputPassword} />
           )}
-        </FormItem>
+        </FormItem> */}
+
         <FormFooter>
           <Button component={'primary'} size={'large'} block>
             로그인

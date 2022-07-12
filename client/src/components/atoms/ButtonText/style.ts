@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 interface Props {
   component?: string;
   size?: string;
-  block: boolean;
 }
 
 const ButtonStyle = css<Props>`

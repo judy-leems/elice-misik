@@ -4,29 +4,18 @@ import * as UI from './style';
 interface Props {
   component?: string;
   size?: string;
-  block?: boolean;
-  children?: React.ReactNode | string;
+  children?: string;
   to?: string;
-  href?: string;
   onClick?: (e: any) => void;
 }
 
-const ButtonText = ({
-  component,
-  size,
-  children,
-  to,
-  href,
-  onClick,
-}: Props) => {
+const ButtonText = ({ component, size, children, to, onClick }: Props) => {
   if (to) {
     return (
       <UI.ButtonLink
-        type='button'
         component={component}
         size={size}
         to={to}
-        href={href}
         onClick={onClick}
       >
         {children}
@@ -34,12 +23,7 @@ const ButtonText = ({
     );
   } else {
     return (
-      <UI.Button
-        type='button'
-        component={component}
-        size={size}
-        onClick={onClick}
-      >
+      <UI.Button component={component} size={size} onClick={onClick}>
         {children}
       </UI.Button>
     );
@@ -49,6 +33,9 @@ const ButtonText = ({
 ButtonText.defulatProps = {
   component: 'default', // default, primary, info, disable
   size: 'default', // default, small, medium, large
+  block: false,
+  to: null,
+  onClick: () => null,
 };
 
 export default ButtonText;

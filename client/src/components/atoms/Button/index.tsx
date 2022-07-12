@@ -5,29 +5,18 @@ interface Props {
   component?: string;
   size?: string;
   block?: boolean;
-  children?: React.ReactNode | string;
+  children?: string;
   to?: string;
-  href?: string;
   onClick?: (e: any) => void;
 }
 
-const Button = ({
-  component,
-  size,
-  block,
-  children,
-  to,
-  href,
-  onClick,
-}: Props) => {
+const Button = ({ component, size, block, children, to, onClick }: Props) => {
   if (to) {
     return (
       <UI.ButtonLink
-        type='button'
         component={component}
         size={size}
         to={to}
-        href={href}
         block={block!}
         onClick={onClick}
       >
@@ -52,6 +41,9 @@ Button.defulatProps = {
   component: 'default', // default, primary, info, disable
   size: 'default', // default, small, medium, large
   block: false,
+  to: null,
+  children: '',
+  onClick: () => null,
 };
 
 export default Button;
