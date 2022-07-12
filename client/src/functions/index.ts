@@ -34,25 +34,25 @@ export const onlyNumber = (n: string) => {
 };
 
 // POST CODE
-export const handlePost = (
-  postCode: string,
-  address1: string,
-  address2: string,
-) => {
-  new daum.Postcode({
-    oncomplete: function (data: string) {
-      postCode.value = data.zonecode;
-      address1.value = data.address;
-      address2.value = data.buildingName;
-    },
-  }).open();
-};
+// export const handlePost = (
+//   postCode: string,
+//   address1: string,
+//   address2: string,
+// ) => {
+//   new daum.Postcode({
+//     oncomplete: function (data: string) {
+//       postCode.value = data.zonecode;
+//       address1.value = data.address;
+//       address2.value = data.buildingName;
+//     },
+//   }).open();
+// };
 
 // date YYYY-MM-DD
 export const dateYearMonthDay = (date: string) => {
   const result = date.split('-');
   let year = Number(result[0]);
-  let month = Number(result[1]);
+  let month: string | number = Number(result[1]);
   month = month >= 10 ? month : '0' + month;
   let day = Number(result[2].slice(0, 2));
   const hyphenFormat = `${year}-${month}-${day}`;
