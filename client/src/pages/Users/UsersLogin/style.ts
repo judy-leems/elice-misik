@@ -11,7 +11,8 @@ export const JoinContainer = styled.div`
   justify-content: center;
   margin-top: 10px;
   text-align: center;
-  button {
-    margin-left: 10px;
+  p {
+    margin-right: 10px;
+    color: ${(props) => props.theme.colors.font2};
   }
 `;

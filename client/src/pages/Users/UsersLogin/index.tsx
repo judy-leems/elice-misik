@@ -15,6 +15,11 @@ function UsersLogin({}) {
   const [userId, setUserId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
+  const handleLogin = async () => {
+    const 
+    console.log(userId.length, password.length);
+  };
+
   return (
     <UI.Container>
       <Form>
@@ -23,6 +28,7 @@ function UsersLogin({}) {
           <FormInput htmlFor={'inputId'} labelTitle={'아이디'}>
             <InputText
               id={'inputId'}
+              maxLength={10}
               onChange={(e) => setUserId(e.target.value)}
               placeholder={'elice@gmail.com'}
             />
@@ -33,6 +39,9 @@ function UsersLogin({}) {
           <FormInput htmlFor={'inputPassword'} labelTitle={'비밀번호'}>
             <InputText
               id={'inputPassword'}
+              type={'password'}
+              maxLength={20}
+              autoComplete={'current-password'}
               onChange={(e) => setPassword(e.target.value)}
               placeholder={'최소 8자 이상의 비밀번호를 입력해 주세요'}
             />
@@ -40,14 +49,21 @@ function UsersLogin({}) {
           <FormError message={'비밀번호 형식이 아닙니다.'} />
         </FormItem>
         <FormFooter>
-          <Button component={'primary'} size={'large'} block>
+          <Button
+            component={'primary'}
+            size={'large'}
+            block
+            onClick={handleLogin}
+          >
             로그인
           </Button>
         </FormFooter>
       </Form>
       <UI.JoinContainer>
         <Typography>TEAM3의 회원이 아니신가요?</Typography>
-        <ButtonText component='primary'>회원가입</ButtonText>
+        <ButtonText component='primary' to={'/users/register'}>
+          회원가입
+        </ButtonText>
       </UI.JoinContainer>
     </UI.Container>
   );
