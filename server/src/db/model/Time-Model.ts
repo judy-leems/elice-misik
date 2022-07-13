@@ -7,13 +7,16 @@ import { timeInfo } from "../../routers";
  */
 export class TimeModel{
   
-  async findTimeByTimeId(timeId:number) {
+  async findTimeByTimeId(timeId: number) {
+    console.log(22222);
     const timeRepository= AppDataSource.getRepository(Time);
     // get a post repository to perform operations with post
-
+    console.log(33333);
+    console.log(timeRepository)
     const time = await timeRepository.findOneBy({
       timeId: timeId
-    })
+    });
+    console.log(44444);
     return (time);
   }
 
@@ -44,6 +47,43 @@ export class TimeModel{
     .from(Time)
     .where('timeId = :timeId',{timeId:timeId})
     .execute()
+  }
+  async findTimeByQuery(REGNumber:string, year:number,month:number,date:number){
+ 
+    const timeRepository= AppDataSource.getRepository(Time)
+    const times= await timeRepository
+    .find({
+      where:{
+        REGNumber:REGNumber,
+          year:year,
+          month:month,
+          date:date,
+        }
+      })
+    return times;
+  }
+  async updateTime( timeId:number, year:number, month:number, date:number, hour:number){
+    await AppDataSource
+      .createQueryBuilder()
+      .update(Time)
+      .set({
+        year:year,
+        month:month,
+        date:date,
+        hour:hour,
+      })
+      .where("timeId = :timeId", { timeId: timeId })
+      .execute()
+  }
+  async findTime(timeId:number){
+    const timeRepository= AppDataSource.getRepository(Time)
+    const time = await timeRepository
+    .find({
+      where:{
+        timeId:timeId
+      }
+    })
+    return time;
   }
 }
 

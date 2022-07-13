@@ -2,32 +2,20 @@ import {BaseEntity, Entity, Column, PrimaryGeneratedColumn,PrimaryColumn, Create
 import { Reserve } from "./Reserve";
 import { Restaurant } from "./Restaurant";
 
-@Entity('Time')
-export class Time extends BaseEntity{
+@Entity('Wish')
+export class Wish extends BaseEntity{
   @PrimaryGeneratedColumn()
-  timeId: number;
+  wishId: number;
 
   @Column()
   REGNumber: string;
 
   @Column()
-  year: number;
+  email: string;
 
-  @Column()
-  month: number;
-
-  @Column()
-  date: number;
-
-  @Column()
-  hour: number;
+  @CreateDateColumn({type:"timestamp"})
+  createdAt: Date;
   
-  @Column()
-  remainder: number;
-
-  @Column()
-  initialRemainder:number;
-
   // @ManyToOne(()=>Restaurant, restaurant=> restaurant.times, {onDelete:'CASCADE'})
   // restaurant:Restaurant
 
