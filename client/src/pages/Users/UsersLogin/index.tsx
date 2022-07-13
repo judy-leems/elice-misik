@@ -11,6 +11,7 @@ import ButtonText from '../../../components/atoms/ButtonText';
 import Typography from '../../../components/atoms/Typography';
 import { PAGES } from '../../../constants/title';
 import { LABELTITLE, PLACEHOLDER } from '../../../constants/input';
+import { ERROR } from '../../../constants/error';
 import { validateEmail } from '../../../functions';
 import * as UI from './style';
 
@@ -50,14 +51,15 @@ const UsersLogin = () => {
     const isMinPasswordLength = isInputPasswordValue.length >= 8;
 
     if (!isInputIdValue) {
-      errors.inputId = '이메일을 입력해주세요';
+      errors.inputId = ERROR.ID_INPUT;
     } else if (!isValidEmail) {
-      errors.inputId = '이메일 형식이 아닙니다.';
+      errors.inputId = ERROR.ID_EMAIL_VALID;
     }
+
     if (!isInputPasswordValue) {
-      errors.inputPassword = '비밀번호를 입력해주세요';
+      errors.inputPassword = ERROR.PASSWORD_INPUT;
     } else if (!isMinPasswordLength) {
-      errors.inputPassword = '비밀번호는 최소8자 입니다';
+      errors.inputPassword = ERROR.PASSWORD_MIN_LENGTH;
     }
 
     return errors;

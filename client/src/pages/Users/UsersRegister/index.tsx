@@ -9,6 +9,7 @@ import FormFooter from '../../../components/molecules/FormFooter';
 import Button from '../../../components/atoms/Button';
 import { PAGES } from '../../../constants/title';
 import { LABELTITLE, PLACEHOLDER } from '../../../constants/input';
+import { ERROR } from '../../../constants/error';
 import { validateEmail } from '../../../functions';
 import * as UI from './style';
 
@@ -17,7 +18,14 @@ type valueObject = {
 };
 
 const UsersRegister = () => {
-  const initialValue: valueObject = { inputId: '', inputPassword: '' };
+  const initialValue: valueObject = {
+    inputId: '',
+    inputNickname: '',
+    inputEmail: '',
+    inputPassword: '',
+    inputPasswordConfirm: '',
+    inputPhone: '',
+  };
   const [formValues, setFormValues] = useState(initialValue);
   const [formErrors, setFormErrors] = useState<valueObject>({});
   const [isSubmit, setIsSubmit] = useState(false);
@@ -43,19 +51,49 @@ const UsersRegister = () => {
   const validate = (values: any) => {
     const errors: valueObject = {};
     const isInputIdValue = values.inputId;
+    const isInputNicknameValue = values.inputNickname;
+    const isInputEmailValue = values.inputEmail;
     const isInputPasswordValue = values.inputPassword;
+    const isInputPasswordConfirmValue = values.inputPasswordConfirm;
+    const isInputPhoneValue = values.inputPhone;
+
     const isValidEmail = validateEmail(values.inputId);
     const isMinPasswordLength = isInputPasswordValue.length >= 8;
 
     if (!isInputIdValue) {
-      errors.inputId = '이메일을 입력해주세요';
+      errors.inputId = ERROR.ID_INPUT;
     } else if (!isValidEmail) {
-      errors.inputId = '이메일 형식이 아닙니다.';
+      errors.inputId = ERROR.ID_EMAIL_VALID;
     }
-    if (!isInputPasswordValue) {
-      errors.inputPassword = '비밀번호를 입력해주세요';
+
+    if (!isInputNicknameValue) {
+      errors.inputPassword = ERROR.PASSWORD_INPUT;
     } else if (!isMinPasswordLength) {
-      errors.inputPassword = '비밀번호는 최소8자 입니다';
+      errors.inputPassword = ERROR.PASSWORD_MIN_LENGTH;
+    }
+
+    if (!isInputEmailValue) {
+      errors.inputPassword = ERROR.PASSWORD_INPUT;
+    } else if (!isMinPasswordLength) {
+      errors.inputPassword = ERROR.PASSWORD_MIN_LENGTH;
+    }
+
+    if (!isInputPasswordValue) {
+      errors.inputPassword = ERROR.PASSWORD_INPUT;
+    } else if (!isMinPasswordLength) {
+      errors.inputPassword = ERROR.PASSWORD_MIN_LENGTH;
+    }
+
+    if (!isInputPasswordConfirmValue) {
+      errors.inputPassword = ERROR.PASSWORD_INPUT;
+    } else if (!isMinPasswordLength) {
+      errors.inputPassword = ERROR.PASSWORD_MIN_LENGTH;
+    }
+
+    if (!isInputPhoneValue) {
+      errors.inputPassword = ERROR.PASSWORD_INPUT;
+    } else if (!isMinPasswordLength) {
+      errors.inputPassword = ERROR.PASSWORD_MIN_LENGTH;
     }
 
     return errors;
