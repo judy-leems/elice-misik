@@ -76,6 +76,32 @@ const UsersRegister = () => {
       error: formErrors.inputId,
     },
     {
+      htmlFor: 'inputNickname',
+      labelTitle: LABELTITLE.NICKNAME,
+      type: 'text',
+      id: 'inputNickname',
+      name: 'inputNickname',
+      value: formValues.inputNickname,
+      maxLength: 10,
+      autoComplete: undefined,
+      onChange: handleChange,
+      placeholder: PLACEHOLDER.NICKNAME,
+      error: formErrors.inputNickname,
+    },
+    {
+      htmlFor: 'inputEmail',
+      labelTitle: LABELTITLE.EMAIL,
+      type: 'text',
+      id: 'inputEmail',
+      name: 'inputEmail',
+      value: formValues.inputEmail,
+      maxLength: undefined,
+      autoComplete: undefined,
+      onChange: handleChange,
+      placeholder: PLACEHOLDER.EMAIL,
+      error: formErrors.inputEmail,
+    },
+    {
       htmlFor: 'inputPassword',
       labelTitle: LABELTITLE.PASSWORD,
       type: 'password',
@@ -87,6 +113,32 @@ const UsersRegister = () => {
       onChange: handleChange,
       placeholder: PLACEHOLDER.PASSWORD,
       error: formErrors.inputPassword,
+    },
+    {
+      htmlFor: 'inputPasswordConfirm',
+      labelTitle: LABELTITLE.PASSWORD_CONFIRM,
+      type: 'password',
+      id: 'inputPasswordConfirm',
+      name: 'inputPasswordConfirm',
+      value: formValues.inputPasswordConfirm,
+      maxLength: undefined,
+      autoComplete: undefined,
+      onChange: handleChange,
+      placeholder: PLACEHOLDER.PASSWORD_CONFIRM,
+      error: formErrors.inputPasswordConfirm,
+    },
+    {
+      htmlFor: 'inputPhone',
+      labelTitle: LABELTITLE.PHONE,
+      type: 'text',
+      id: 'inputPhone',
+      name: 'inputPhone',
+      value: formValues.inputPhone,
+      maxLength: 11,
+      autoComplete: undefined,
+      onChange: handleChange,
+      placeholder: PLACEHOLDER.PHONE,
+      error: formErrors.inputPhone,
     },
   ];
 
@@ -113,6 +165,7 @@ const UsersRegister = () => {
             </FormItem>
           );
         })}
+
         <FormFooter>
           <Button component={'primary'} size={'large'} block>
             회원가입
