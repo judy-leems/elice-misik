@@ -1,10 +1,16 @@
 // import is from '@sindresorhus/is';
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router, Request, Response, NextFunction, json } from 'express';
 import { restaurantService, restaurantImageService } from '../services';
 import { ownerRequired, loginRequired } from '../middlewares';
 import { upload, s3 } from '../config/upload';
+import {client} from '../config/redis'
+import { resolveModuleName } from 'typescript';
+const DEFAULT_EXPRIE= 3600
+
 
 const restaurantRouter = Router();
+
+
 
 // 1. 업체 생성
 restaurantRouter.post(
@@ -70,13 +76,23 @@ restaurantRouter.get(
   async function (req: Request, res: Response, next: NextFunction) {
     try {
       const { REGNumber } = req.params;
-      const restaurant = await restaurantService.getRestaurant(REGNumber);
-      res.status(200).json(restaurant);
-    } catch (error) {
+      let redisresult = await client.get(`restaurant?REGNumber=${REGNumber}`)
+      if(redisresult!==null){
+        console.log("CACHE HIT");
+        res.status(200).json(JSON.parse(redisresult))
+      }
+      else{
+        console.log("CACHE MISS");
+          const restaurant = await restaurantService.getRestaurant(REGNumber);
+          client.set(`restaurant?REGNumber=${REGNumber}`,JSON.stringify(restaurant),{
+            EX: DEFAULT_EXPRIE
+          });
+          res.status(200).json(restaurant);
+        }
+    }catch (error) {
       next(error);
-    }
-  },
-);
+    }},
+)
 
 // 4. 업체 정보 업데이트
 restaurantRouter.patch(
